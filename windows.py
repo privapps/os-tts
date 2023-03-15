@@ -3,19 +3,23 @@
 # tested with windows 11, python 3.9
 
 import urllib.request,win32com.client
-import time, json, decimal
+import time, json
 
-def get_and_read(speaker):
+
+def get_and_read():
   link = ""
   with urllib.request.urlopen(link) as f:
     info = json.loads(f.read())
     print(info)
-    num = "{:.2f}".format(info["es"] % 100)
-    speaker.Speak(decimal.Decimal(num).normalize())
+    return info["es"] % 100
+
 
 speaker = win32com.client.Dispatch("SAPI.SpVoice")
 
-
+last = 0
 while 1:
- get_and_read(speaker)
+ num = get_and_read()
+ if num != last:
+   speaker.Speak("{:.1f}".format(num))
+   last = num
  time.sleep(5)

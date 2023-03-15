@@ -12,10 +12,13 @@ def get_and_read():
   info = json.loads(f.read())
   f.close()
   print(info)
-  num = "{:.2f}".format(info["es"] % 100)
-  system("say " + str(decimal.Decimal(num).normalize()))
+  return info["es"] % 100
 
 
+last = 0
 while 1:
- get_and_read()
+ num = get_and_read()
+ if last != num:
+     system("say " + str(decimal.Decimal("{:.1f}".format(num % 100)).normalize()))
+     last = num
  time.sleep(5)
