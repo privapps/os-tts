@@ -3,7 +3,7 @@
 
 import urllib2
 from os import system
-import time, json, decimal
+import time, json
 
 
 def get_and_read():
@@ -19,6 +19,6 @@ last = 0
 while 1:
  num = get_and_read()
  if last != num:
-     system("say " + str(decimal.Decimal("{:.1f}".format(num % 100)).normalize()))
+     system("say -v Ting-Ting " + str("{:.1f}".format(num)))
      last = num
  time.sleep(5)
